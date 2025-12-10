@@ -1,0 +1,16 @@
+name,firstname,position,age,nationality,team,jersey,height,birthdate,birthplace,strong_foot,info_path
+Mendes,Diogo,ATT,20,Portugaise,Sporting CP,7,185,05/02/2005,Funchal (Madeira),Droit,europe/portugal/mendes-diogo
+Antunes,Tiago,MIL,24,Portugaise,FC Porto,8,170,12/08/2001,Porto,Droit,europe/portugal/antunes-tiago
+Semedo,Rafael,DEF,22,Portugaise,Benfica,4,194,22/03/2003,Amadora,Droit,europe/portugal/semedo-rafael
+Viana,Gonçalo,DEF,21,Portugaise,SC Braga,2,179,14/11/2004,Braga,Droit,europe/portugal/viana-gonçalo
+Pacheco,Rui,ATT,27,Portugaise,Vitória Guimarães,9,181,30/06/1998,Ponta Delgada,Ambidextre,europe/portugal/pacheco-rui
+Weber,Maximilian,MIL,21,Allemande,Bayern Munich,6,183,14/03/2004,Munich,Droit,europe/german/maximilian-weber
+Hartmann,Felix,ATT,20,Allemande,Borussia Dortmund,25,186,02/11/2005,Dortmund,Droit,europe/german/felix-hartmann
+Vogel,Niklas,DEF,23,Allemande,RB Leipzig,4,196,22/07/2002,Hambourg,Gauche,europe/german/niklas-vogel
+Ehlers,Jonas,GAR,19,Allemande,Bayer Leverkusen,1,188,10/09/2006,Cologne,Ambidextre,europe/german/jonas-ehlers
+Schmitt,Elias,MIL,18,Allemande,Eintracht Francfort,17,175,30/01/2007,Berlin,Droit,europe/german/elias-schmitt
+Cherif,Amine,ATT,19,Française,Olympique Lyonnais,10,179,15/05/2006,Vénissieux,Droit,europe/french/amine-cherif
+Koné,Moussa,DEF,22,Française,Paris Saint-Germain,3,193,02/09/2003,Bondy,Droit,europe/french/moussa-kone
+Le Gallec,Yann,MIL,24,Française,Stade Rennais,8,172,14/02/2001,Brest,Gauche,europe/french/yann-le-gallec
+Rossi,Enzo,GAR,26,Française,Olympique de Marseille,16,186,30/11/1999,Marseille,Droit,europe/french/enzo-rossi
+Delcourt,Thomas,MIL,21,Française,RC Lens,11,177,22/06/2004,Arras,Ambidextre,europe/french/thomas-delcourt
