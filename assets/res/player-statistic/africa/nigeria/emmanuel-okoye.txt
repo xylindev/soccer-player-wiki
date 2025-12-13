@@ -1,0 +1,4 @@
+Compétition,Matchs Joués,Buts Encaissés,Clean Sheets,Cartons J/R,Note Moyenne
+En Club,115,108,42,4/0,7.05
+National,30,25,12,1/0,7.15
+Mondial,00,00,00,0/0,0.0

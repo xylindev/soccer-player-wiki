@@ -1,0 +1,4 @@
+Compétition,Matchs Joués,Buts,Passes D.,Cartons J/R,Note Moyenne
+En Club,20,01,03,2/0,7.15
+National,03,00,00,0/0,7.00
+Mondial,00,00,00,0/0,0.0

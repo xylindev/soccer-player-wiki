@@ -94,7 +94,7 @@ public class Search extends HttpServlet {
                     out.print("<p>Nous n'avons trouvé aucun joueur correspondant à votre recherche.</p>");
             } 
             
-            else if(player.length > 0 && player.length < 2){
+            else if(player.length == 1){
                 name = player[0];
 
                 PreparedStatement preparedStatement = connection.prepareStatement(queryTwo);
@@ -102,7 +102,34 @@ public class Search extends HttpServlet {
                 preparedStatement.setString(2, "%"+name+"%");
                 ResultSet result = preparedStatement.executeQuery();
                 
-                if(!result.next()) out.print("<p>Nous n'avons trouvé aucun joueur correspondant à votre recherche.</p>");
+                if(!result.next()) {
+                    name = nameVerification(player[0]);
+                    preparedStatement.setString(1, "%"+name+"%");
+                    preparedStatement.setString(2, "%"+name+"%");
+                    result = preparedStatement.executeQuery();
+
+                    if(!result.next()) 
+                        out.print("<p>Nous n'avons trouvé aucun joueur correspondant à votre recherche.</p>");
+                    else {
+                        out.print(
+                            "<div class=\"result\">" +
+                                "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
+                                    "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
+                                    "<p>" + result.getString("name") + " " + result.getString("firstname") + "</p>" +
+                                "</div></a>"
+                        );
+                        while (result.next()) {
+                            out.print(
+                                "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
+                                    "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
+                                    "<p>" + result.getString("name") + " " + result.getString("firstname") + "</p>" +
+                                "</div></a>"
+                            );
+                        }
+                        out.print("</div>");
+                    }
+                }
+
                 else {
                     out.print(
                         "<div class=\"result\">" +
