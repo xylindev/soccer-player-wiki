@@ -5,7 +5,7 @@ main section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    
     h2 {
         font-size: 4rem;
         margin-bottom: 20px;
@@ -56,6 +56,10 @@ main section {
             width: 15%;
             text-align: center; 
             cursor: pointer;
+        }
+
+        .player:hover{
+            transform: scale(105%);
         }
 
         .player img {

@@ -1,0 +1,35 @@
+main {
+    section {
+        p {
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+
+        .result {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 20px;
+
+            .player {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                border: 2px solid var(--primary-color-light);
+                cursor: pointer;
+                padding: 10px;
+                border-radius: 20px;
+
+                img {
+                    width: 80%;
+                }
+            }
+
+            .player:hover {
+                transform: scale(101%);
+            }
+        }
+    }
+}

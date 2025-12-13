@@ -21,7 +21,7 @@
 html {
     font-size: 20px;
     background-color: var(--primary-color-bg-light);
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 a { text-decoration: none; }
@@ -47,4 +47,48 @@ header {
     }
 }
 
-main { height: calc(100vh - 100px); }
+main { 
+    height: calc(100vh - 100px);
+
+    section {
+        .search {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 50px;
+            margin-bottom: 30px;
+        }
+
+        .search input {
+            padding: 15px;
+            width: 70%;
+            border: 2px solid var(--primary-color-light);
+            border-radius: 10px;
+        }
+
+        .search [type="submit"] {
+            background-color: transparent;
+            width: 20%;
+            border: 2px solid var(--primary-color-light);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .search .filter {
+            width: 50px;
+            aspect-ratio: 1 / 1;
+            font-size: 1.2em;
+            border: 2px solid var(--primary-color-light);
+            border-radius: 10px;
+            text-align: center;
+            i {
+                position: relative;
+                top: 25%;
+            }
+        }
+    }
+}
