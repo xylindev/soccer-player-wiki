@@ -1,5 +1,6 @@
 package db;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +14,7 @@ public class PSQLConnection {
     private final String PASSWORD;
 
     
-    public PSQLConnection() throws Exception {
+    public PSQLConnection() throws SQLException, ClassNotFoundException, IOException {
         InputStream psqlConfig = getClass().getClassLoader().getResourceAsStream("config.psql.properties");
 
         Properties properties = new Properties();
