@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.catalina.tribes.util.Arrays;
 
 import db.PSQLConnection;
 import jakarta.servlet.ServletException;
@@ -59,8 +63,6 @@ public class Search extends HttpServlet {
             "</form>"
         );
 
-        if(parameter.equals("")) out.print("<p>Aucune recherche n'a été renseignée.</p>");
-
         // ---------------------------------------------------------------------------------------------------------
 
         try {
@@ -70,17 +72,21 @@ public class Search extends HttpServlet {
             PSQLConnection psql = new PSQLConnection();
             Connection connection = psql.getConnection();
             
-            String[] player = parameter.split(" ");
-            String name, firstname; 
+            List<String> player = inputVerification(parameter.split(" "));
+
+            String name = "";
+            String firstname; 
             
-            if(player.length >= 2){
-                name = nameVerification(player[0]);
-                if(player.length > 2) {
-                    for(int i = 1; i< player.length-1; i++) 
-                        name += " " + player[i];
-                    firstname = nameVerification(player[player.length-1]);
+            if(player.size() >= 2){
+                firstname = player.get(0);
+                if(player.size() > 2) {
+                    for(int i=1; i<player.size(); i++){
+                        name += player.get(i);
+                        if(i<player.size()-1)
+                            name += " ";
+                    }
                 } else {
-                    firstname = nameVerification(player[1]);
+                    name = player.get(1);
                 }
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(queryOne);
@@ -90,69 +96,59 @@ public class Search extends HttpServlet {
                 
                 if(result.next())
                     res.sendRedirect("player?id=" + result.getInt("id"));
-                else 
-                    out.print("<p>Nous n'avons trouvé aucun joueur correspondant à votre recherche.</p>");
+                else {
+                    preparedStatement.setString(1, firstname);
+                    preparedStatement.setString(2, name);
+                    result = preparedStatement.executeQuery();
+                    
+                    if(result.next())
+                        res.sendRedirect("player?id=" + result.getInt("id"));
+                    else 
+                        out.print("<p>Nous n'avons trouvé aucun joueur correspondant à votre recherche.</p>");
+                }
             } 
             
-            else if(player.length == 1){
-                name = player[0];
-
+            else if(player.size() == 1){
+                name = player.get(0);
                 PreparedStatement preparedStatement = connection.prepareStatement(queryTwo);
                 preparedStatement.setString(1, "%"+name+"%");
                 preparedStatement.setString(2, "%"+name+"%");
                 ResultSet result = preparedStatement.executeQuery();
-                
-                if(!result.next()) {
-                    name = nameVerification(player[0]);
-                    preparedStatement.setString(1, "%"+name+"%");
-                    preparedStatement.setString(2, "%"+name+"%");
-                    result = preparedStatement.executeQuery();
+                boolean wasNull = false;
 
-                    if(!result.next()) 
-                        out.print("<p>Nous n'avons trouvé aucun joueur correspondant à votre recherche.</p>");
-                    else {
-                        out.print(
-                            "<div class=\"result\">" +
-                                "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
-                                    "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
-                                    "<p>" + result.getString("name") + " " + result.getString("firstname") + "</p>" +
-                                "</div></a>"
-                        );
-                        while (result.next()) {
-                            out.print(
-                                "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
-                                    "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
-                                    "<p>" + result.getString("name") + " " + result.getString("firstname") + "</p>" +
-                                "</div></a>"
-                            );
-                        }
-                        out.print("</div>");
-                    }
-                }
+                out.print("<div class=\"result\">");
 
-                else {
+                while(result.next()) {
                     out.print(
-                        "<div class=\"result\">" +
-                            "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
-                                "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
-                                "<p>" + result.getString("name") + " " + result.getString("firstname") + "</p>" +
-                            "</div></a>"
+                        "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
+                            "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
+                            "<p>" + result.getString("firstname") + " " + result.getString("name") + "</p>" +
+                        "</div></a>"
                     );
-                    while (result.next()) {
-                        out.print(
-                            "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
-                                "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
-                                "<p>" + result.getString("name") + " " + result.getString("firstname") + "</p>" +
-                            "</div></a>"
-                        );
-                    }
-                    out.print("</div>");
+                    wasNull = true;
                 }
-            } 
-            
-            else {
-                out.print("<p>Aucune recherche n'a été renseignée.</p>");
+
+                preparedStatement.setString(1, "%"+name.toLowerCase()+"%");
+                preparedStatement.setString(2, "%"+name.toLowerCase()+"%");
+                result = preparedStatement.executeQuery();
+
+                while (result.next()) {
+                    out.print(
+                        "<a href=\"player?id=" + result.getInt("id") + "\"><div class=\"player\">" +
+                        "<img src=\"assets/img/" + result.getString("info_path") + ".png\" alt=\"player\">" +
+                        "<p>" + result.getString("firstname") + " " + result.getString("name") + "</p>" +
+                        "</div></a>"
+                    );
+                    wasNull = true;
+                }
+
+                out.print("</div>");
+
+                if(!wasNull) 
+                    out.print("<p>Nous n'avons trouvé aucun joueur correspondant à votre recherche.</p>");
             }
+
+            else { out.print("<p>Aucune recherche n'a été renseignée.</p>"); }
 
             connection.close();
         } catch (Exception e) {
@@ -164,6 +160,16 @@ public class Search extends HttpServlet {
         out.print("</section>");
         out.print("</main>");
         out.print("</body>");
+    }
+
+    private List<String> inputVerification(String[] player){
+        List<String> result = new ArrayList<>();
+
+        for(int idx=0; idx<player.length; idx++)
+            if(!player[idx].equals(""))
+                result.add(nameVerification(player[idx]));
+
+        return result;
     }
 
     private String nameVerification(String name){

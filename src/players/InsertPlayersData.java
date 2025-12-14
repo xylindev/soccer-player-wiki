@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +49,7 @@ public class InsertPlayersData {
 
             for(String[] data : datas){
                 Player player = new Player(data);
+                long birthdateMillis = Instant.ofEpochSecond(player.getBIRTHDATE().toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC)).toEpochMilli();
                 preparedStatement.setString(1, player.getName());
                 preparedStatement.setString(2, player.getFirstname());
                 preparedStatement.setString(3, player.getPosition());
@@ -54,7 +58,7 @@ public class InsertPlayersData {
                 preparedStatement.setString(6, player.getTeam());
                 preparedStatement.setInt(7, player.getJersey());
                 preparedStatement.setInt(8, player.getHeight());
-                preparedStatement.setDate(9, new Date(player.getBIRTHDATE().toEpochDay()));
+                preparedStatement.setDate(9, new Date(birthdateMillis));
                 preparedStatement.setString(10, player.getBIRTHPLACE());
                 preparedStatement.setString(11, player.getStrongFoot());
                 preparedStatement.setString(12, player.getPATH());
@@ -62,7 +66,6 @@ public class InsertPlayersData {
             }
 
             System.out.println("All is ok!");
-
             connection.close();
         } catch (Exception e) {
             e.printStackTrace();

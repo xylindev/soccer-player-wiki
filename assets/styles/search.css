@@ -1,29 +1,35 @@
 main {
     section {
+        padding-bottom: 20px;
         p {
             text-align: center;
             font-size: 1.3em;
-            margin-bottom: 30px;
         }
 
         .result {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 20px;
+            gap: 20px;
+            padding: 0 20px 0 20px;
 
             .player {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                flex-direction: column;
+                flex-direction: column-reverse;
                 border: 2px solid var(--primary-color-light);
                 cursor: pointer;
-                padding: 10px;
                 border-radius: 20px;
 
                 img {
                     width: 80%;
+                }
+
+                p {
+                    font-size: 1.5em;
+                    margin: 0;
+                    font-weight: 600;
+                    padding: 5px;
                 }
             }
 
