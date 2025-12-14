@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.catalina.tribes.util.Arrays;
-
 import db.PSQLConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -46,7 +44,7 @@ public class Search extends HttpServlet {
             "<h1><a href=\"index.html\">SOCCER PLAYER WIKI</a></h1>" +
                 "<ul>" +
                     "<li><i class=\"bi bi-brightness-high-fill\"></i></li>" +
-                    "<li><a href=\"pages/login.html\"><i class=\"bi bi-person-fill\"></i></a></li>" +
+                    "<li><a href=./user><i class=\"bi bi-person-fill\"></i></a></li>" +
                 "</ul>" +
             "</header>"
         );

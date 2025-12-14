@@ -45,7 +45,7 @@ public class Player extends HttpServlet{
             "<h1><a href=\"index.html\">SOCCER PLAYER WIKI</a></h1>" +
                 "<ul>" +
                     "<li><i class=\"bi bi-brightness-high-fill\"></i></li>" +
-                    "<li><a href=\"pages/login.html\"><i class=\"bi bi-person-fill\"></i></a></li>" +
+                    "<li><a href=./user><i class=\"bi bi-person-fill\"></i></a></li>" +
                 "</ul>" +
             "</header>"
         );
@@ -161,7 +161,7 @@ public class Player extends HttpServlet{
                         "<div class=\"information\">" +
                             "<div class=\"name\">" +
                                 "<h2>" + result.getString("firstname") + " " + result.getString("name") + "</h2>" +
-                                "<button name=\"favorite\"><i class=\"bi bi-star-fill\"></i></button>" +
+                                "<form action=\"favorite\" method=\"post\"><button name=\"favorite\"><i class=\"bi bi-star-fill\"></i></button></form>" +
                             "</div>" +
 
                             "<div class=\"data\">" +
