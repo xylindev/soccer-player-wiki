@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import utils.ContentType;
 
-@WebServlet("/user")
+@WebServlet("/pages/user")
 public class User extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class User extends HttpServlet {
         String login = (String) session.getAttribute("login");
 
         if(login == null){
-            res.sendRedirect("./auth/login.html");
+            res.sendRedirect("./pages/auth/login.html");
             return;
         }
 
